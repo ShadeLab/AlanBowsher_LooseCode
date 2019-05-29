@@ -1,0 +1,33 @@
+## The following code describes how to downloading QIIME and use in the MSU HPCC.
+
+# First, install anaconda3 on home directory. From the following link (https://docs.continuum.io/anaconda/install/linux/), install the installer on to home directory (download onto desktop, then scp to home directory of HPCC).
+
+#second, type the following command:
+bash ~/Downloads/Anaconda3-5.3.0-Linux-x86_64.sh
+
+#third, type the following command:
+export PATH=$PATH:$HOME/anaconda3/bin
+
+#next, install qiime. Although I specified qiime1.8.0 here, it was actually 1.9.0 that was installed.
+conda create -n qiime1.8.0 python=2.7 qiime matplotlib=1.4.3 mock nose -c bioconda
+
+
+
+
+
+# Once Qiime is installed, anytime you want to use QIIME, you’ll need to reactivate your qiime environment:
+source activate qiime1.8.0
+
+# to print config file:
+print_qiime_config.py -t
+
+#To exit the Qiime environment:
+source deactivate
+
+
+
+####DANGER CODE BELOW
+
+# To COMPLETELY DELETE the Qiime environment and its packages, deactivate the environment then run the following: 
+conda remove --name qiime1 --all
+

@@ -7,4 +7,4 @@ The code is separated into two files:
 1) The bean drought/excess nutrients/control experiment.
 2) The corn soil drying/rewetting/phytohormone experiment.
 
-**See the related GitHub repository (https://github.com/ShadeLab/PAPER_Bowsher_mSystems_2019_16sRatio_CTCstain) for the sequence analysis files used to build the input files for these R analyses**
+

@@ -1,0 +1,15 @@
+#BUILD PHYLOGENY USING FASTTREE
+
+FastTree -nt OTUS_aligned.fasta > otus.tree
+
+#ROOT THE PHYLOGENY (SINCE FASTTREE DOES NOT ROOT THE TREE BUT A ROOTED TREE IS NEEDED IN PHYLOSEQ)
+
+library("ape")
+TREE <- read.tree("otus.tree")
+library("phangorn")
+RootedTree <- midpoint(TREE)
+
+write.tree(RootedTree, file = "~/otus.tree.rooted", append = FALSE, digits = 10, tree.names = FALSE)
+
+#MOVE ROOTED TREE TO WORKING DIRECTORY
+mv otus.tree.rooted /mnt/research/ShadeLab/WorkingSpace/Bowsher/

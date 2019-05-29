@@ -1,0 +1,53 @@
+#To download new packages into your R library on the MSU HPCC:
+
+Rscript -e "install.packages('phyloseq', lib='~/R/library', contriburl=contrib.url('http://cran.r-project.org/'))"
+export R_LIBS_USER=~/R/library
+R
+Sys.getenv("R_LIBS_USER")
+
+
+###BELOW is an example of submitting a job to the SLURM system of the MSU HPCC in which we use R.
+###Note that it requires you to first deve
+
+#First, write an R script in a text file. 
+
+vim Rscript_example
+
+#In the Rscript file, just start with whatever libraries are needed. For example:
+
+library("phyloseq")
+OTU_table <- read.table("Clean_OTU_table.txt", sep="\t", row.names=1, header=TRUE)
+OTUs_DNARNA <- data.matrix(OTU_table)
+OTUs_DNARNA = otu_table(OTUs_DNARNA, taxa_are_rows = TRUE)
+METADATA <- read.csv("Metadata.csv", sep=",", row.names=1, header=TRUE, na.strings="")
+METADATA<- sample_data(METADATA)
+physeqDNARNA = phyloseq(OTUs_DNARNA, TAX, METADATA)
+
+
+#Next, create a job script:
+
+#!/bin/bash -login
+#SBATCH --time=04:00:00
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=1
+#SBATCH --mem=12G
+#SBATCH --job-name TESTINGWITHR
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=bowsher1@msu.edu
+
+module load GCC/6.4.0-2.28
+module load OpenMPI/2.1.2
+module load R/3.5.0-X11-20180131
+Rscript Rscript_example  --save
+
+
+###Finally, submit the job
+
+
+
+
+
+
+
+
+
